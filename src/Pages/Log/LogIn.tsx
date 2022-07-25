@@ -100,8 +100,8 @@ const LogIn = () => {
                   message: "Tài khoản không được để trống!",
                 },
               {
-                pattern:/^[A-Za-z]+$/,
-                message:"Tài khoản không được chứa khoảng cách hoặc kí tự đặc biệt"
+                // pattern:/^[A-Za-z]+$/,
+                // message:"Tài khoản không được chứa khoảng cách hoặc kí tự đặc biệt"
               }
               ]}
             >

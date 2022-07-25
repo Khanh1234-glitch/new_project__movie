@@ -1,23 +1,16 @@
-import { createStyles } from "@mantine/core";
-import React, { useState } from "react";
+import { useForm, FieldErrors } from "react-hook-form";
+import { TextInput, Button, Space, createStyles } from "@mantine/core";
 import { useSelector, useDispatch } from "react-redux";
-import { FaRegistered } from "react-icons/fa";
-import { Link, Navigate } from "react-router-dom";
 import { AppDispatch, RootState } from "../../store";
-import {createRegister} from './../../slices/register'
-import {
-  AutoComplete,
-  Button,
-  Cascader,
-  Checkbox,
-  Col,
-  Form,
-  Input,
-  InputNumber,
-  Row,
-  Select,
-} from "antd";
-import { useForm } from "react-hook-form";
+import { CreateRegister } from "./../../slices/register";
+import { FaRegistered } from "react-icons/fa";
+import { Navigate } from "react-router-dom";
+interface RegisterValues {
+  taiKhoan: string;
+  matKhau: string;
+  email: string;
+  hoTen: string;
+}
 
 const useStyle = createStyles(() => ({
   container__register: {
@@ -30,198 +23,152 @@ const useStyle = createStyles(() => ({
     backgroundPosition: "center",
   },
   form__register: {
-    width: "500px",
-    backgroundColor: "white",
-    transform: "translateX(60vh)",
-    marginTop: "15vh !important",
-    padding: "50px !important",
+    width: "30%",
+    display: "block",
+    boxSizing: "border-box",
+    margin: "0 0 50vh 60vh !important",
+    transform: "translateY(30vh)",
+    justifyContent: "center",
+    backgroundColor: "#fff",
     borderRadius: "30px",
+    padding: "10px 20px 20px 20px",
   },
 }));
-
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 8 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 16 },
-  },
-};
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
-interface valuesregister {
-  taiKhoan: string;
-  email: string;
-  matKhau: string;
-}
 const Register = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterValues>({
+    defaultValues: { taiKhoan: "", matKhau: "", email: "", hoTen: "" },
+    // mode: cách để trigger validation, mặc định là onSubmit
+    mode: "onTouched",
+  });
   const dispatch = useDispatch<AppDispatch>();
   const { currentUser, isLoading, error } = useSelector(
     (state: RootState) => state.register
   );
-  const { register, handleSubmit } = useForm<valuesregister>({
-    defaultValues: { email: "", taiKhoan: "", matKhau: "" },
-  });
-  // const taiKhoan = register("taiKhoan");
+  // const taiKhoan= register("taiKhoan");
   // console.log(taiKhoan);
-  const [form] = Form.useForm();
-  const { classes, cx } = useStyle();
-
-  const onFinish = (values:valuesregister) => {
-    dispatch(createRegister(values))
-    
+  const onSubmit = (values: RegisterValues) => {
+    dispatch(CreateRegister(values));
   };
-
+  const onError = (errors: FieldErrors<RegisterValues>) => {
+    console.log(errors);
+  };
+  console.log("render");
+  const { classes } = useStyle();
+  // Kiểm tra current user có phải là object hay không nếu không phải là obj rỗng => user đã đăng ký
+  if(Object.keys(currentUser).length)
+  {
+    return <Navigate to = "/sign__in" replace/>
+  }
   return (
-    <div>
-      <div className={classes.container__register}>
-        <Form
-          className={classes.form__register}
-          {...formItemLayout}
-          form={form}
-          name="register"
-          onFinish={onFinish}
-          initialValues={{
-            residence: ["zhejiang", "hangzhou", "xihu"],
-            prefix: "86",
+    <div className={classes.container__register}>
+      <h1>Register</h1>
+      <form
+        className={classes.form__register}
+        onSubmit={handleSubmit(onSubmit, onError)}
+      >
+        <div
+          className="logo"
+          style={{
+            textAlign: "center",
+            fontSize: "30px",
+            color: "#fb4226",
           }}
-          scrollToFirstError
         >
-          <div className="header__form">
-            <div
-              className="logo"
-              style={{
-                textAlign: "center",
-                fontSize: "30px",
-                color: "#fb4226",
-              }}
-            >
-              <FaRegistered />
-              <p style={{ fontWeight: "bold", color: "black" }}>Đăng kí</p>
-            </div>
-          </div>
-          <Form.Item
-            name="account"
-            label="Tài khoản"
-            tooltip="What do you want others to call you?"
-            rules={[
-              {
-                required: true,
-                message: "Tài khoản không được để trống!",
-                whitespace: true,
-              },
-              {
-                pattern:/^[A-Za-z]+$/,
-                message:"Tài khoản không được chứa khoảng cách hoặc kí tự đặc biệt và số"
-              }
-            ]}
-          >
-            <Input {...register("taiKhoan")}/>
-          </Form.Item>
-          <Form.Item
-            name="email"
-            label="E-mail"
-            rules={[
-              {
-                type: "email",
-                message: "Không đúng cú pháp email!",
-              },
-              {
-                required: true,
-                message: "Email không được để trống!",
-              },
-            ]}
-          >
-            <Input {...register("email")}/>
-          </Form.Item>
-
-          <Form.Item
-            name="password"
-            label="Mật khẩu"
-            rules={[
-              {
-                required: true,
-                message: "Mật khẩu không được để trống!",
-              },
-            ]}
-            hasFeedback
-          >
-            <Input.Password {...register("matKhau")}/>
-          </Form.Item>
-
-          <Form.Item
-            name="confirm"
-            label="Xác nhận mật khẩu"
-            dependencies={["password"]}
-            hasFeedback
-            rules={[
-              {
-                required: true,
-                message: "Nhập lại mật khẩu!",
-              },
-              ({ getFieldValue }) => ({
-                validator(_, value) {
-                  if (!value || getFieldValue("password") === value) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject(
-                    new Error(
-                      "Mật khẩu không trùng !"
-                    )
-                  );
-                },
-              }),
-            ]}
-          >
-            <Input.Password {...register("matKhau")}/>
-          </Form.Item>
-
-          <Form.Item
-            name="agreement"
-            valuePropName="checked"
-            rules={[
-              {
-                validator: (_, value) =>
-                  value
-                    ? Promise.resolve()
-                    : Promise.reject(new Error("Should accept agreement")),
-              },
-            ]}
-            {...tailFormItemLayout}
-          >
-            <Checkbox>
-              Đồng ý với các <a href="">điều khoản</a>
-            </Checkbox>
-          </Form.Item>
-          <Form.Item {...tailFormItemLayout}>
-            <Button
-              disabled={isLoading}
-              style={{
-                width: "100%",
-                backgroundColor: "#fb4226",
-                border: "none",
-              }}
-              type="primary"
-              htmlType="submit"
-            >
-              Register
-            </Button>
-          </Form.Item>
-          <Link to="/sign__in">Bạn đã có tài khoản ? Đăng nhập ngay</Link>
-        </Form>
-      </div>
+          <FaRegistered />
+          <p style={{ fontWeight: "bold", color: "black", fontSize: "30px" }}>
+            Đăng Ký
+          </p>
+        </div>
+        <TextInput
+          error={errors.taiKhoan?.message}
+          label="Tài khoản"
+          type="text"
+          placeholder="Tài khoản"
+          {...register("taiKhoan", {
+            required: {
+              value: true,
+              message: "Tài khoản không được để trống",
+            },
+            pattern: {
+              value: /^[a-zA-Z0-9]{4,20}$/,
+              message:
+                "Chỉ sử dụng từ 4 đến 20 kí tự, không được sử dụng kí tự đặc biệt và khoảng cách",
+            },
+          })}
+        />
+        <Space h="md" />
+        <TextInput
+          error={errors.matKhau?.message}
+          label="Mật khẩu"
+          type="password"
+          placeholder="Mật khẩu"
+          {...register("matKhau", {
+            required: {
+              value: true,
+              message: "Mật khẩu không được để trống",
+            },
+            pattern: {
+              value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+              message:
+                "có ít nhất 8 ký tự, trong đó có 1 kí tự số và 1 kí tự chữ",
+            },
+          })}
+        />
+        <Space h="md" />
+        <TextInput
+          error={errors.email?.message}
+          label="Email"
+          type="email"
+          placeholder="Email"
+          {...register("email", {
+            required: {
+              value: true,
+              message: "Email không được để trống",
+            },
+            pattern: {
+              value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+              message: "Chưa đúng cú pháp của Email !",
+            },
+          })}
+        />
+        <Space h="md" />
+        <TextInput
+          error={errors.hoTen?.message}
+          label="Họ tên"
+          type="text"
+          placeholder="Họ tên"
+          {...register("hoTen", {
+            required: {
+              value: true,
+              message: "Họ tên không được để trống",
+            },
+            pattern: {
+              value:
+                /[^a-z0-9A-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễếệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]/,
+              message: "Phải ghi đầy đủ họ và tên đúng cú pháp trên giấy tờ",
+            },
+          })}
+        />
+        <Space h="md" />
+        {error && <span>{error}</span>}
+        <Space h="md" />
+        <Button
+          style={{
+            width: "100%",
+            fontWeight: "bold",
+            backgroundColor: "#fb4226",
+            border: "none",
+          }}
+          disabled={isLoading}
+          type="submit"
+        >
+          Đăng ký
+        </Button>
+      </form>
     </div>
   );
 };
