@@ -5,6 +5,7 @@ import Home from './Pages/Home/Home';
 import MainTemplate from './Templates/MainTemplate';
 import LogIn from './Pages/Log/LogIn';
 import Register from './Pages/Register/Register';
+import Detail from './Pages/Detail/Detail';
 function App() {
   return (
     <>
@@ -13,6 +14,7 @@ function App() {
               <Route index element={<Home/>}/>
               <Route path='/sign__in' element={<LogIn/>}/>
               <Route path='/register' element={<Register/>}/>
+              <Route path='/detail/:movieId' element={<Detail/>}/>
             </Route>  
               <Route path='*' element={<h1>Not found</h1>}/>
         </Routes> 

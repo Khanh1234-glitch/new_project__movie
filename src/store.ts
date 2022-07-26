@@ -1,3 +1,4 @@
+import infoListCinema from "./slices/infoListCinema";
 import { configureStore } from "@reduxjs/toolkit";
 import logger from 'redux-logger'
 // import thunk from 'redux-thunk'
@@ -13,6 +14,7 @@ const store = configureStore({
     infoSystem,
     auth,
     register,
+    infoListCinema,
   },
   middleware: (getDefaultMiddleware)=>getDefaultMiddleware().concat(logger)
 });
