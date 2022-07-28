@@ -1,5 +1,5 @@
-import { RegisterValues } from './../interface/registerValues';
-import { currentUser } from './../interface/auth';
+import { RegisterValues } from '../interface/interfaceAuth/registerValues';
+import { currentUser } from '../interface/interfaceAuth/auth';
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authAPI from '../services/authAPI';
 

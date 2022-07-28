@@ -6,12 +6,11 @@ import { createinfoSystem } from "../slices/infoSystem";
 import { Tabs } from "antd";
 import { useState } from "react";
 import "antd/dist/antd.css";
+import { useParams } from "react-router-dom";
 const TableListMovie = () => {
   const { data, isLoading, error } = useSelector(
     (state: RootState) => state.infoSystem
-    
   );
-  
   const dispatch = useDispatch<any>();
   useEffect(() => {
     dispatch(createinfoSystem());
@@ -38,24 +37,6 @@ const TableListMovie = () => {
                 key={index}
               >
                 <Tabs tabPosition={tabPosition}>
-                  <>
-                    {/* {data.content.lstCumRap.map((cumrap, index) => {
-                      return (
-                        <TabPane
-                          tab={
-                            <img
-                              src={infoSystem.logo}
-                              className="rounded-full"
-                              width={"50px"}
-                            />
-                          }
-                          key={index}
-                        >
-                          {infoSystem.tenCumRap}
-                        </TabPane>
-                      );
-                    })} */}
-                  </>
                 </Tabs>
               </TabPane>
             );

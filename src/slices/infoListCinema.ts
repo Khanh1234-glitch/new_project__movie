@@ -1,51 +1,48 @@
-import { currentUser } from './../interface/auth';
 import { AxiosError } from 'axios';
-import { infoListCinema as infoCinema } from './../interface/infoListCinema';
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { infoListCinema } from '../interface/interfaceDetail/infoListCinema';
 import manamentCinemaAPI from '../services/manamentCineAPI';
 
-interface infoListCinema {
+
+interface infoCinema{
     data:infoListCinema,
     isLoading:boolean,
-    error: string,
+    error:string,
 }
+const initialState: infoCinema = {
+  data: {} as infoListCinema,
+  isLoading: false,
+  error: "",
+};
 
-const initialState : infoListCinema=({
-    data:{} as infoListCinema,
-    isLoading:false,
-    error:"",
-})
-
-// thunk action
-
-export const createInfoListCinema = createAsyncThunk(
-    "infoCinema/infoListCinema",
-   async (maPhim: any) => {
+export const createInfoCinema = createAsyncThunk(
+  "infoList/infoListCinema",
+ async (maPhim:any) => {
     try {
-        const data = await manamentCinemaAPI.infoListCinema(maPhim);
-        return data;
+      const data = await manamentCinemaAPI.infoList(maPhim);
+      return data
     } catch (error) {
-        const err = (error as AxiosError).response?.data as any
-        throw err.content;
+      const err = (error as AxiosError).response?.data as any
+      return err;
     }
-   }
+ }
 )
 
- const infoListCinemaSlice = createSlice({
-    name:"infoListCinema",
-    initialState,
-    reducers:{},
-    extraReducers:(builder)=> {
-        builder.addCase(createInfoListCinema.pending,(state)=>{
-          return {...state, isLoading:true, error:""}
-        })
-        builder.addCase(createInfoListCinema.fulfilled,(state, {payload})=>{
-          return {...state, isLoading:false,infoListCinema:payload }
-        })
-        builder.addCase(createInfoListCinema.rejected,(state, {error})=>{
-          return {...state, isLoading:false,error:error.message as string }
-        })
-      },
+const infoListCinemaSlice = createSlice({
+  name:"infoListCinema",
+  initialState,
+  reducers:{},
+  extraReducers:(builder) =>{
+    builder.addCase(createInfoCinema.pending,(state)=>{
+      return {...state, isLoading:true}
+    })
+    builder.addCase(createInfoCinema.fulfilled,(state, {payload})=>{
+      return {...state, isLoading:false, data:payload}
+    })
+    builder.addCase(createInfoCinema.rejected,(state, {error})=>{
+      return {...state, isLoading:false, error:error.message as string}
+    })
+  },
 })
 
-export default infoListCinemaSlice.reducer;
+export default infoListCinemaSlice.reducer

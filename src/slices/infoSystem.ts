@@ -1,8 +1,8 @@
-import { LstCumRap } from './../interface/lstCumRap';
+
 import { AxiosError } from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import movieAPI from "../services/movieAPI";
-import { SystemCinema } from "../interface/systemCinema";
+import { SystemCinema } from "../interface/tableListMovie/systemCinema";
 import manamentCinemaAPI from '../services/manamentCineAPI';
 
 interface SystemState {

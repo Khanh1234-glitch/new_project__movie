@@ -59,6 +59,7 @@ const LogIn = () => {
   const onFinish = (values: any) => {
     dispatch(signIn(values))
   };
+console.log(currentUser);
 
 
 

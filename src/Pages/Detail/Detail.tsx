@@ -1,43 +1,43 @@
-import React, { Component, useEffect, useState } from "react";
-import styles from "./Detail.module.css";
-import "./../../index.css";
-import type { RadioChangeEvent } from "antd";
-import { Radio, Space, Tabs } from "antd";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { Tabs } from "antd";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { createInfoListCinema } from "../../slices/infoListCinema";
-import { useParams } from "react-router-dom";
-const { TabPane } = Tabs;
+import { useSelector } from "react-redux";
+import { NavLink, useParams } from "react-router-dom";
+import { createInfoCinema } from "../../slices/infoListCinema";
+import { RootState } from "../../store";
+import "./../../index.css";
+import styles from "./Detail.module.css";
 
 type TabPosition = "left" | "right" | "top" | "bottom";
-const Detail = (props: any) => {
-  const param = useParams(); // cách này của react-router-dom version 6
-  const { data, error, isLoading } = useSelector(
+const { TabPane } = Tabs;
+const Detail = () => {
+  const { data, isLoading, error } = useSelector(
     (state: RootState) => state.infoListCinema
   );
   console.log(data);
-  
-
+  const moment = require('moment');
+  const param = useParams();
   const dispatch = useDispatch<any>();
   useEffect(() => {
-    // const { movieId } = props; // Cách này của react-router-dom version 5
-    dispatch(createInfoListCinema(param.movieId));
+    dispatch(createInfoCinema(param.movieId));
   }, []);
+  // console.log(param.movieId);
   const [tabPosition, setTabPosition] = useState<TabPosition>("left");
   return (
-    <>
-          <div style={{ backgroundImage: `url(https://picsum.photos/seed/picsum/200/300
-))` }}>
+    <div>
+      <div
+        style={{
+          backgroundImage: `url(${data.hinhAnh})`,
+          backgroundSize: "cover",
+          minHeight: "100vh",
+        }}
+      >
         <div className={styles.App} style={{ display: "flex" }}>
           <div className={styles.box1}>
             <div className="container cols-12">
               <div className={styles.row}>
                 <div className="col-sm-4">
-                  <img
-                    src="https://scontent.fsgn5-5.fna.fbcdn.net/v/t39.30808-1/295385136_1515356865547747_3523647905096852001_n.jpg?stp=dst-jpg_p240x240&_nc_cat=100&ccb=1-7&_nc_sid=7206a8&_nc_ohc=xdhIyhC6-5EAX9TV79y&_nc_ht=scontent.fsgn5-5.fna&oh=00_AT9vJ97fdW_b45Hhz1SXoandcujn7gx-Hh7crf2rU_XDww&oe=62E54B6D"
-                    alt=""
-                  />
+                  <img src={data.hinhAnh} width={"200px"} alt="" />
                 </div>
                 <div className="col-sm-4">
                   <p>{data.tenPhim}</p>
@@ -45,7 +45,7 @@ const Detail = (props: any) => {
                 </div>
                 <div className="circle firchow">
                   <div className="c100 p50 big">
-                    <span>50%</span>
+                    <span>{data.danhGia}%</span>
                     <div className="slice">
                       <div className="bar" />
                       <div className="fill" />
@@ -54,68 +54,75 @@ const Detail = (props: any) => {
                 </div>
               </div>
             </div>
-            <div className="container tab__detail mt-5">
-              <Tabs tabPosition={tabPosition}>
-                <TabPane tab="Tab 1" key="1">
-                  Content of Tab 1
-                </TabPane>
-                <TabPane tab="Tab 2" key="2">
-                  Content of Tab 2
-                </TabPane>
-                <TabPane tab="Tab 3" key="3">
-                  Content of Tab 3
-                </TabPane>
-              </Tabs>
-            </div>
+
+            <Tabs
+              defaultActiveKey="1"
+              centered
+              style={{ backgroundColor: "#fff" }}
+            >
+              <TabPane tab="Lịch chiếu" key="1">
+                <div className="container tab__detail mt-5">
+                  <Tabs tabPosition={tabPosition} className="bg-white">
+                    {data.heThongRapChieu?.map((item, index) => {
+                      return (
+                        <TabPane
+                          tab={
+                            <div>
+                              <img src={item.logo} width={50} height={50} />{" "}
+                              {item.tenHeThongRap}
+                            </div>
+                          }
+                          key={index}
+                        >
+                          {item.cumRapChieu.map((group, index) => {
+                            return (
+                              <div key={index}>
+                                <div className="groupDetail mt-5 d-flex">
+                                  <div className="img_GroupDetail">
+                                    <img
+                                      src={group.hinhAnh}
+                                      width={70}
+                                      alt=""
+                                    />
+                                  </div>
+                                  <div className="groupName__Detail ml-5 ">
+                                    <p className="font-weight-bold fs-5">
+                                      {group.tenCumRap}
+                                    </p>
+                                    <p>{group.diaChi}</p>
+                                  </div>
+                                </div>
+                                <div className="row ">
+                                    {group.lichChieuPhim?.map(
+                                      (calendar, index) => {
+                                        return (
+                                          <NavLink to="/checkout/:maLichChieu" className="col-3 text-primary">
+                                            {moment(calendar.ngayChieuGioChieu).format('hh:mm A') }
+                                          </NavLink>
+                                        );
+                                      }
+                                    )}  
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </TabPane>
+                      );
+                    })}
+                  </Tabs>
+                </div>
+              </TabPane>
+              <TabPane tab="Thông tin" key="2">
+                Content of Tab Pane 2
+              </TabPane>
+              <TabPane tab="Đánh giá" key="3">
+                Content of Tab Pane 3
+              </TabPane>
+            </Tabs>
           </div>
         </div>
       </div>
-
-    
-  
-      {/* <div style={{ backgroundImage: "url(https://picsum.photos/200)" }}>
-        <div className={styles.App} style={{ display: "flex" }}>
-          <div className={styles.box1}>
-            <div className="container cols-12">
-              <div className={styles.row}>
-                <div className="col-sm-4">
-                  <img
-                    src="https://scontent.fsgn5-5.fna.fbcdn.net/v/t39.30808-1/295385136_1515356865547747_3523647905096852001_n.jpg?stp=dst-jpg_p240x240&_nc_cat=100&ccb=1-7&_nc_sid=7206a8&_nc_ohc=xdhIyhC6-5EAX9TV79y&_nc_ht=scontent.fsgn5-5.fna&oh=00_AT9vJ97fdW_b45Hhz1SXoandcujn7gx-Hh7crf2rU_XDww&oe=62E54B6D"
-                    alt=""
-                  />
-                </div>
-                <div className="col-sm-4">
-                  <p>Tên phim</p>
-                  <p>Mô tả</p>
-                </div>
-                <div className="circle firchow">
-                  <div className="c100 p50 big">
-                    <span>50%</span>
-                    <div className="slice">
-                      <div className="bar" />
-                      <div className="fill" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="container tab__detail mt-5">
-              <Tabs tabPosition={tabPosition}>
-                <TabPane tab="Tab 1" key="1">
-                  Content of Tab 1
-                </TabPane>
-                <TabPane tab="Tab 2" key="2">
-                  Content of Tab 2
-                </TabPane>
-                <TabPane tab="Tab 3" key="3">
-                  Content of Tab 3
-                </TabPane>
-              </Tabs>
-            </div>
-          </div>
-        </div>
-      </div> */}
-    </>
+    </div>
   );
 };
 

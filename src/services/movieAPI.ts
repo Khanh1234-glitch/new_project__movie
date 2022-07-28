@@ -1,4 +1,4 @@
-import { SystemCinema } from '../interface/systemCinema';
+
 import { Movie } from "../interface/movie";
 import axiosClient from "./axiosClient"
 

@@ -1,6 +1,6 @@
-import { RegisterValues } from './../interface/registerValues';
-import { currentUser } from "../interface/auth";
-import { LoginValues } from "../interface/loginValues";
+import { RegisterValues } from '../interface/interfaceAuth/registerValues';
+import { currentUser } from "../interface/interfaceAuth/auth";
+import { LoginValues } from "../interface/interfaceAuth/loginValues";
 import axiosClient from "./axiosClient";
 
 const authAPI = {

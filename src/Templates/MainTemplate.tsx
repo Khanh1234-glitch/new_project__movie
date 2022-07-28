@@ -4,7 +4,7 @@ import Carousel from "../Components/Carousel"
 import Header from "../Components/Header"
 
 
-const MainTemplate = () => {
+const CheckoutTemplate = () => {
   return (
     <Box
     sx={{
@@ -25,4 +25,4 @@ const MainTemplate = () => {
   )
 }
 
-export default MainTemplate
+export default CheckoutTemplate

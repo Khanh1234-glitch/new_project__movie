@@ -54,7 +54,7 @@ const CarouselItem = () => {
   const { data, error, isLoading } = useSelector(
     (state: RootState) => state.movieList
   );
-  console.log(data);
+  console.log("Item",data);
   
   const { classes, cx } = useState();
   const dispatch = useDispatch<any>();
