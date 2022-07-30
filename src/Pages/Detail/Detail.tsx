@@ -96,7 +96,7 @@ const Detail = () => {
                                     {group.lichChieuPhim?.map(
                                       (calendar, index) => {
                                         return (
-                                          <NavLink to="/checkout/:maLichChieu" className="col-3 text-primary">
+                                          <NavLink to={`/checkout/${calendar.maLichChieu}`}className="col-3 text-primary">
                                             {moment(calendar.ngayChieuGioChieu).format('hh:mm A') }
                                           </NavLink>
                                         );

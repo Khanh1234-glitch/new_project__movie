@@ -7,6 +7,7 @@ import LogIn from "./Pages/Log/LogIn";
 import Register from "./Pages/Register/Register";
 import Detail from "./Pages/Detail/Detail";
 import Checkout from "./Pages/Checkout/Checkout";
+// import Checkout from "./Pages/Checkout/Checkout";
 
 function App() {
   return (

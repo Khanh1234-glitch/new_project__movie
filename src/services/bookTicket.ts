@@ -1,7 +1,5 @@
-import { CheckoutInterface } from '../interface/interfaceCheckout/CheckoutInterface';
-
-
-import axiosClient from "./axiosClient"
+import { CheckoutInterface } from '../interface/interfaceCheckout/CheckoutInterface'
+import axiosClient from './axiosClient'
 
 
 const bookTicket ={
@@ -12,3 +10,5 @@ const bookTicket ={
 }
 
 export default bookTicket
+
+
