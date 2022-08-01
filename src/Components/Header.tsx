@@ -60,7 +60,7 @@ const Header = ({ className }: Props) => {
     if (localStorage.length === 0) {
       return <p>Đăng nhập</p>;
     } else if (localStorage.length === 1) {
-      return <p>{currentUser.hoTen}</p>;
+      return <p style={{display:"flex",justifyContent:"center"}}>{currentUser.hoTen}</p>;
     }
   };
   const Register = () => {

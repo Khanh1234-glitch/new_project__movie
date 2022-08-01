@@ -5,7 +5,7 @@ import { RootState } from "../store";
 import { useEffect } from "react";
 import { createStyles, Pagination } from "@mantine/core";
 import { Table } from "antd";
-import { Link, NavLink, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, NavLink, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import style from "../Styles/styleCarouselItem.module.css";
 import axios from "axios";
 const useState = createStyles(() => ({
@@ -50,7 +50,7 @@ const useState = createStyles(() => ({
   },
 }));
 
-const CarouselItem = (props:any) => {
+const CarouselItem = () => {
   const { data, error, isLoading } = useSelector(
     (state: RootState) => state.movieList
   );
@@ -66,8 +66,9 @@ const CarouselItem = (props:any) => {
   const changePage =(page:any)=>{
     setSearchParams({page})
   }
+  const param1=useParams()
   useEffect(() => {
-    dispatch(MovieList());
+    dispatch(MovieList(param1.param));
   }, [searchParams]);
   
   return (
@@ -115,10 +116,11 @@ const CarouselItem = (props:any) => {
             })}
         </div>
       </div>
-      <div className="container mb-5">
+      <div className="container mb-5 text-center">
       <button style={{width:"30px", marginLeft:"10px"}} onClick={() => changePage(1)}>1</button>
       <button style={{width:"30px", marginLeft:"10px"}} onClick={() => changePage(2)}>2</button>
       <button style={{width:"30px", marginLeft:"10px"}} onClick={() => changePage(3)}>3</button>
+      <button style={{width:"30px", marginLeft:"10px"}} onClick={() => changePage(4)}>4</button>
       </div>
 
     </>

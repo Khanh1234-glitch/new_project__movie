@@ -5,10 +5,8 @@ const movieAPI = {
     getMovieBanner: ()=>{
         return axiosClient.get<unknown, Movie[]>("QuanLyPhim/LayDanhSachBanner");
     },
-    getMovieList:()=>{
-        return axiosClient.get<unknown, Movie[]>("QuanLyPhim/LayDanhSachPhimPhanTrang",{params:{
-            soTrang:1,
-        }});
+    getMovieList:(param:any)=>{
+        return axiosClient.get<unknown, Movie[]>(`QuanLyPhim/LayDanhSachPhimPhanTrang?maNhom=GP01&soTrang=${param}&soPhanTuTrenTrang=${3}`);
     },
 }
 

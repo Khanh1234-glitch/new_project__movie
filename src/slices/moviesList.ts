@@ -15,9 +15,9 @@ const initialState: MoviesState = {
   error: "",
 };
 
-export const MovieList = createAsyncThunk("movies/getMovieList", async () => {
+export const MovieList = createAsyncThunk("movies/getMovieList", async (param:any) => {
   try {
-    const data = await movieAPI.getMovieList();
+    const data = await movieAPI.getMovieList(param);
     return data;
   } catch (error) {
     const err = (error as AxiosError).response?.data as any;
