@@ -1,7 +1,10 @@
+import { ListCalendarForFilm } from './ListCalendarForFilm';
 export interface ListCinema{
-    maCumRap:  string;
-    tenCumRap: string;
-    hinhAnh:   string;
-    diaChi:    string;
-    lstLichChieuTheoPhim:string[];
+    dangChieu:boolean;
+    hinhAnh:string;
+    hot:boolean;
+    lstLichChieuTheoPhim:ListCalendarForFilm[];
+    maPhim:number;
+    sapChieu:boolean;
+    tenPhim:string;
 }

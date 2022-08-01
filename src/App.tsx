@@ -18,8 +18,8 @@ function App() {
           <Route path="/sign__in" element={<LogIn />} />
           <Route path="/register" element={<Register />} />
           <Route path="/detail/:movieId" element={<Detail />} />
-        </Route>
           <Route path="/checkout/:maLichChieu" element={<Checkout />}/>
+        </Route>
 
 
         <Route path="*" element={<h1>Not found</h1>} />

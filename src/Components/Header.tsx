@@ -79,7 +79,7 @@ const Header = ({ className }: Props) => {
             dispatch(Logout());
           }}
         >
-          <FaUserCircle style={{ fontSize: "25px", marginRight: "0px" }} />
+          <FaUserCircle  style={{ fontSize: "25px"}} />
           <Link className={classes.btn__a} to="/">
             Đăng xuất
           </Link>

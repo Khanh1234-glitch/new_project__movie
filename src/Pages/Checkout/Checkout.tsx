@@ -138,7 +138,7 @@ const CheckoutLayout = (props:any) => {
     console.log(key);
   };
   return (
-    <div className="">
+    <div className="mt-8" style={{marginTop:"100px"}}>
       <Tabs defaultActiveKey="1" onChange={onChange}>
         <TabPane tab="01 CHỌN GHẾ & THANH TOÁN" key="1">
           <Checkout {...props}/>
@@ -147,6 +147,7 @@ const CheckoutLayout = (props:any) => {
           <BookTickResult {...props}/>
         </TabPane>
       </Tabs>
+   
     </div>
   );
 };

@@ -1,8 +1,8 @@
-import { ListCinema } from './listCinema';
+import { ListClusterCinema } from './ListClusterCinema';
 export interface SystemCinema {
   maHeThongRap: string;
   tenHeThongRap: string;
   logo: string;
   mahom: string;
-  danhSachPhim: ListCinema[];
+  lstCumRap: ListClusterCinema[];
 }
