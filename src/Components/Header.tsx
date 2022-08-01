@@ -2,6 +2,11 @@ import { createStyles, Group } from "@mantine/core";
 import IMG from "./../img/download.png";
 import { FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
+import { useDispatch } from "react-redux";
+import { Logout } from "../slices/auth";
+
 interface Props {
   className?: string;
 }
@@ -9,7 +14,9 @@ const useStyle = createStyles(() => ({
   sign__in__register: {
     display: "flex",
   },
-  btn__a : {
+  btn__a: {
+    border: "none",
+    backgroundColor: "transparent",
     textDecoration: "none",
     marginRight: "20px",
     fontWeight: "bold",
@@ -46,7 +53,42 @@ const useStyle = createStyles(() => ({
   header: {},
 }));
 const Header = ({ className }: Props) => {
+  const { currentUser } = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch<any>();
   const { classes, cx } = useStyle();
+  const Login = () => {
+    if (localStorage.length === 0) {
+      return <p>Đăng nhập</p>;
+    } else if (localStorage.length === 1) {
+      return <p>{currentUser.hoTen}</p>;
+    }
+  };
+  const Register = () => {
+    if (localStorage.length === 0) {
+      return (
+        <Link style={{display:"flex", }} className={classes.btn__a} to="/register">
+          <FaUserCircle style={{ fontSize: "25px", marginRight: "10px" }} />
+          <p>Đăng kí</p>
+        </Link>
+      );
+    } else if (localStorage.length === 1) {
+      return (
+        <button
+          className={classes.btn__a}
+          onClick={() => {
+            dispatch(Logout());
+          }}
+        >
+          <FaUserCircle style={{ fontSize: "25px", marginRight: "0px" }} />
+          <Link className={classes.btn__a} to="/">
+            Đăng xuất
+          </Link>
+        </button>
+      );
+    }
+  };
+  console.log(localStorage);
+
   return (
     <Group
       className={className}
@@ -64,7 +106,7 @@ const Header = ({ className }: Props) => {
     >
       <nav className="navbar navbar-expand-xl navbar-light ">
         <a className="navbar-brand" href="/#">
-         <img src={IMG} width={"50px"} alt="" />
+          <img src={IMG} width={"50px"} alt="" />
         </a>
         <button
           className="navbar-toggler"
@@ -83,40 +125,47 @@ const Header = ({ className }: Props) => {
             style={{ transform: "translateX(50vh)" }}
           >
             <li className="nav-item active">
-         <a className={cx(classes.link__a, className)} href="/#lichchieu">
+              <a className={cx(classes.link__a, className)} href="/#lichchieu">
                 Lịch chiếu
-              </a>   
+              </a>
             </li>
             <li className="nav-item">
-            <a className={cx(classes.link__a, className)} href="/#cumrap">
+              <a className={cx(classes.link__a, className)} href="/#cumrap">
                 Cụm rạp
-              </a>      
+              </a>
             </li>
             <li className="nav-item">
-            <a className={cx(classes.link__a, className)} href="/#ungdung">
+              <a className={cx(classes.link__a, className)} href="/#ungdung">
                 Ứng dụng
-              </a>     
+              </a>
             </li>
             <li className="nav-item ">
-            <a className={cx(classes.link__a, className)} href="/#tintuc">
+              <a className={cx(classes.link__a, className)} href="/#tintuc">
                 Tin tức
-              </a>     
+              </a>
             </li>
-
           </ul>
           <div className={classes.sign__in__register}>
             <div className="sign__in">
-              <Link to="/sign__in" className={classes.btn__a} >
-                <FaUserCircle style={{fontSize:"25px", marginRight:"10px"}}  />
-                Đăng nhập
+              <Link
+                to="/sign__in"
+                className={classes.btn__a}
+                style={{ display: "flex" }}
+              >
+                <FaUserCircle
+                  style={{ fontSize: "25px", marginRight: "10px" }}
+                />
+                {Login()}
               </Link>
             </div>
             <hr className={classes.disconnexion} />
             <div className="resgister">
-              <Link to="/register" className={classes.btn__a} >
-                <FaUserCircle style={{fontSize:"25px", marginRight:"10px"}}  />
-                Đăng kí
-              </Link>
+              <div
+                className={classes.btn__a}
+                style={{ display: "flex", marginLeft: "20px" }}
+              >
+                {Register()}
+              </div>
             </div>
           </div>
         </div>

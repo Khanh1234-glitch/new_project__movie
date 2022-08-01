@@ -5,7 +5,7 @@ import { Link, Navigate, NavLink, useParams } from "react-router-dom";
 import { bookingTicket, createCheckout } from "../../slices/checkout";
 import { RootState } from "../../store";
 import { CloseOutlined } from "@ant-design/icons";
-
+import { Tabs } from "antd";
 import "./Checkout.css";
 const Checkout = () => {
   const { currentUser, isLoading, error } = useSelector(
@@ -14,7 +14,7 @@ const Checkout = () => {
   const { data, loading, err, listSeatBooking } = useSelector(
     (state: RootState) => state.CheckoutStore
   );
-  
+
   const dispatch = useDispatch<any>();
   const param = useParams();
   useEffect(() => {
@@ -24,7 +24,7 @@ const Checkout = () => {
     return <Navigate to="/sign__in" />;
   }
   return (
-    <div>
+    <div className="">
       <div className=" mt-5">
         <div className="row">
           <div className="col-8  ">
@@ -33,30 +33,30 @@ const Checkout = () => {
                 <div className="text-center mt-3">Màn hình</div>
               </div>
             </div>
-
             <div className="container mt-5 seatCheckout">
               {data?.danhSachGhe?.map((seat, index) => {
                 const classSeatVip = seat.loaiGhe === "Vip" ? "seat_vip" : "";
                 const classBookedSeat =
                   seat.daDat === true ? "booked_seat" : "";
+                // Kiểm tra từng ghế render xem có trong mảng ghế đang đặt hay không
                 const indexSeatBooking = listSeatBooking.findIndex(
                   (seatBooking) => seatBooking.maGhe === seat.maGhe
                 );
-                // let classSeatBooking = '';
-                // if (indexSeatBooking != -1) {
-                //   classSeatBooking = 'gheDangDat';
-                // }
+                let classSeatBooking = "";
+                if (indexSeatBooking != -1) {
+                  classSeatBooking = "booking_seat";
+                }
                 return (
                   <div>
                     <button
                       onClick={() => {
                         dispatch({
                           type: bookingTicket(),
-                          seatBooking: seat,
+                          seatSelected: seat,
                         });
                       }}
                       disabled={seat.daDat}
-                      className={`seat ${classSeatVip} ${classBookedSeat}`}
+                      className={`seat ${classSeatVip} ${classBookedSeat} ${classSeatBooking}`}
                       key={index}
                     >
                       {seat.daDat ? (
@@ -73,9 +73,14 @@ const Checkout = () => {
             </div>
           </div>
           <div className="col-4">
-            <h3 className="text-success text-center text-2xl">{listSeatBooking.reduce((total, seat, index)=>{
-              return total += seat.giaVe;
-            },0).toLocaleString()} đ</h3>
+            <h3 className="text-success text-center text-2xl">
+              {listSeatBooking
+                .reduce((total, seat, index) => {
+                  return (total += seat.giaVe);
+                }, 0)
+                .toLocaleString()}
+              đ
+            </h3>
             <hr />
             <h3>{data?.thongTinPhim?.tenPhim}</h3>
             <p>Địa điểm: {data?.thongTinPhim?.diaChi} </p>
@@ -86,8 +91,12 @@ const Checkout = () => {
             <hr />
             <div className="row">
               <div className="col-10">
-                <span className="text-danger">Ghế: </span>
-
+                <span className="text-danger">
+                  Ghế:
+                  {listSeatBooking.map((seatBooking, index) => {
+                    return <span>{seatBooking.tenGhe}</span>;
+                  })}
+                </span>
               </div>
               <div className="col-2 text-success">0 đ</div>
             </div>
@@ -114,4 +123,32 @@ const Checkout = () => {
   );
 };
 
-export default Checkout;
+
+const BookTickResult = () => {
+  return (
+    <div>Checkout</div>
+  )
+}
+
+
+const CheckoutLayout = (props:any) => {
+  const { TabPane } = Tabs;
+
+  const onChange = (key: string) => {
+    console.log(key);
+  };
+  return (
+    <div className="">
+      <Tabs defaultActiveKey="1" onChange={onChange}>
+        <TabPane tab="01 CHỌN GHẾ & THANH TOÁN" key="1">
+          <Checkout {...props}/>
+        </TabPane>
+        <TabPane tab="02 KẾT QUẢ ĐẶT VÉ" key="2">
+          <BookTickResult {...props}/>
+        </TabPane>
+      </Tabs>
+    </div>
+  );
+};
+
+export default CheckoutLayout;

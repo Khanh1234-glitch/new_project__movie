@@ -18,7 +18,6 @@ const initialState : Checkout ={
     err:"",
     listSeatBooking:[],
 }
-
 export const createCheckout = createAsyncThunk(
     "infoList/infoListCinema",
    async (maLichChieu:any) => {
@@ -32,7 +31,6 @@ export const createCheckout = createAsyncThunk(
    }
    
   )
-
 const CheckoutSlice = createSlice({
     name:"checkout",
     initialState,
@@ -40,13 +38,14 @@ const CheckoutSlice = createSlice({
         bookingTicket:(state:Checkout)=>{
             console.log(state.listSeatBooking);
             const ListSeatUpdate = [...state.listSeatBooking];
-            const Index = ListSeatUpdate.findIndex(seatBooking => seatBooking.maGhe === seatBooking.maGhe )
+            const Index = ListSeatUpdate.findIndex(seatBooking => seatBooking.maGhe ===seatBooking.maGhe )
             if(Index != -1){
+                // Nếu tìm thấy ghế trong mảng có nghĩa là trước đó đã click vào rồi => xóa đi
                 ListSeatUpdate.slice(Index, 1)
             }else{
                 ListSeatUpdate.push(...state.listSeatBooking)
             }
-            return {...state}
+            return {...state,listSeatBooking:ListSeatUpdate}
         }
     },
 

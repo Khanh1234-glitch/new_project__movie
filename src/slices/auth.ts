@@ -33,7 +33,7 @@ const authSlice= createSlice({
   name:"auth",
   initialState,
   reducers:{
-    logout:(state:AuthState)=>{
+    Logout:(state:AuthState)=>{
       // Xoá thông tin của user
       localStorage.removeItem('user');
       // set state currentUser về obj rỗng
@@ -52,5 +52,5 @@ const authSlice= createSlice({
     })
   },
 })
-
+export const {Logout} = authSlice.actions
 export default authSlice.reducer;
