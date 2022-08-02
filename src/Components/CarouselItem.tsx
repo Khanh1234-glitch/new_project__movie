@@ -5,7 +5,13 @@ import { RootState } from "../store";
 import { useEffect } from "react";
 import { createStyles, Pagination } from "@mantine/core";
 import { Table } from "antd";
-import { Link, NavLink, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import style from "../Styles/styleCarouselItem.module.css";
 import axios from "axios";
 const useState = createStyles(() => ({
@@ -54,7 +60,7 @@ const CarouselItem = () => {
   const { data, error, isLoading } = useSelector(
     (state: RootState) => state.movieList
   );
- const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { classes, cx } = useState();
   const dispatch = useDispatch<any>();
   // searchParams được dùng để lưu trữ những giá trị mà có thể chia sẻ (thường là được sử dụng để
@@ -63,14 +69,14 @@ const CarouselItem = () => {
   // Phần tử thứ 1: obj chứa giá trị của search params trên url
   // Phần tử thứ 2: là 1 hàm dùng để thay đổi giá trị của search param trên url
   // console.log(searchParams.get("page"));
-  const changePage =(page:any)=>{
-    setSearchParams({page})
-  }
-  const param1=useParams()
   useEffect(() => {
-    dispatch(MovieList(param1.param));
+    dispatch(MovieList(1));
   }, [searchParams]);
-  
+
+  const changePage = (page: any) => {
+    dispatch(MovieList(page));
+  };
+
   return (
     <>
       <div className="container mb-5">
@@ -98,7 +104,9 @@ const CarouselItem = () => {
                           </div>
                           <div className="descripMovie">
                             <p className={classes.descripMovie}>
-                              {MovieList.moTa}
+                              {MovieList.moTa.length > 50
+                                ? MovieList.moTa.substring(0, 50) + "...."
+                                : MovieList.moTa}
                             </p>
                           </div>
                         </div>
@@ -117,12 +125,31 @@ const CarouselItem = () => {
         </div>
       </div>
       <div className="container mb-5 text-center">
-      <button style={{width:"30px", marginLeft:"10px"}} onClick={() => changePage(1)}>1</button>
-      <button style={{width:"30px", marginLeft:"10px"}} onClick={() => changePage(2)}>2</button>
-      <button style={{width:"30px", marginLeft:"10px"}} onClick={() => changePage(3)}>3</button>
-      <button style={{width:"30px", marginLeft:"10px"}} onClick={() => changePage(4)}>4</button>
+        <button
+          style={{ width: "30px", marginLeft: "10px" }}
+          onClick={() => changePage(1)}
+        >
+          1
+        </button>
+        <button
+          style={{ width: "30px", marginLeft: "10px" }}
+          onClick={() => changePage(2)}
+        >
+          2
+        </button>
+        <button
+          style={{ width: "30px", marginLeft: "10px" }}
+          onClick={() => changePage(3)}
+        >
+          3
+        </button>
+        <button
+          style={{ width: "30px", marginLeft: "10px" }}
+          onClick={() => changePage(4)}
+        >
+          4
+        </button>
       </div>
-
     </>
   );
 };

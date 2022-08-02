@@ -7,6 +7,10 @@ import LogIn from "./Pages/Log/LogIn";
 import Register from "./Pages/Register/Register";
 import Detail from "./Pages/Detail/Detail";
 import Checkout from "./Pages/Checkout/Checkout";
+import AdminTemplate from "./Templates/AdminTemplate";
+import Film from "./Pages/Admin/Film/Film";
+import Dashboard from "./Pages/Admin/Dashboard/Dashboard";
+import ShowTime from "./Pages/Admin/ShowTime/ShowTime";
 // import Checkout from "./Pages/Checkout/Checkout";
 
 function App() {
@@ -19,8 +23,12 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/detail/:movieId" element={<Detail />} />
           <Route path="/checkout/:maLichChieu" element={<Checkout />}/>
+        <Route path="/admin" element={<AdminTemplate/>}>
+          <Route path="/admin/film" element={<Film/>}/>
+          <Route index element={<Dashboard/>}/>
+          <Route path="/admin/showtime" element={<ShowTime/>}/>
         </Route>
-
+        </Route>
 
         <Route path="*" element={<h1>Not found</h1>} />
       </Routes>

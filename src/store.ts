@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import logger from 'redux-logger'
+import  manamentMovie  from './slices/manamentMovie';
 // import thunk from 'redux-thunk'
 // import  CheckoutStore  from './slices/checkout';
 import movieList from "./slices/moviesList";
@@ -17,7 +18,8 @@ const store = configureStore({
     auth,
     register,
     infoListCinema,
-    CheckoutStore
+    CheckoutStore,
+    manamentMovie,
   },
   middleware: (getDefaultMiddleware)=>getDefaultMiddleware().concat(logger)
 });

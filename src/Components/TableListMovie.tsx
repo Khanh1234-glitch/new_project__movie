@@ -48,7 +48,8 @@ const TableListMovie = () => {
                 <Tabs tabPosition={tabPosition}>
                   {infoSystem.lstCumRap.map((cluster, index) => {
                     return (
-                      <TabPane
+                   
+                      <TabPane 
                         tab={
                           <div
                             style={{
@@ -203,7 +204,8 @@ const TableListMovie = () => {
                             </div>
                           );
                         })}
-                      </TabPane>
+                      </TabPane >
+                  
                     );
                   })}
                 </Tabs>
