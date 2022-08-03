@@ -108,7 +108,7 @@ const CarouselItem = () => {
                                 ? MovieList.moTa.substring(0, 50) + "...."
                                 : MovieList.moTa}
                             </p>
-                          </div>
+                          </div>  
                         </div>
                         <NavLink
                           className={style.btn__buyTicket}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Tabs } from "antd";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import Dashboard from "../Pages/Admin/Dashboard/Dashboard";
 import Film from "../Pages/Admin/Film/Film";
 import ShowTime from "../Pages/Admin/ShowTime/ShowTime";

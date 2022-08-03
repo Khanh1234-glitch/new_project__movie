@@ -4,6 +4,7 @@ import  manamentMovie  from './slices/manamentMovie';
 // import thunk from 'redux-thunk'
 // import  CheckoutStore  from './slices/checkout';
 import movieList from "./slices/moviesList";
+import  addFilm  from "./slices/addFilm";
 import movie from "./slices/movies";
 import infoSystem from './slices/infoSystem'
 import auth from "./slices/auth";
@@ -20,6 +21,7 @@ const store = configureStore({
     infoListCinema,
     CheckoutStore,
     manamentMovie,
+    addFilm,
   },
   middleware: (getDefaultMiddleware)=>getDefaultMiddleware().concat(logger)
 });

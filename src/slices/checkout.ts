@@ -58,7 +58,7 @@ const CheckoutSlice = createSlice({
             return {...state , loading:true, data:payload}
         })
         builder.addCase(createCheckout.rejected,(state, err)=>{
-            return {...state , loading:true, error:err.payload as string}
+            return {...state , loading:true, error:err.error.message as string}
         })
     },
 })

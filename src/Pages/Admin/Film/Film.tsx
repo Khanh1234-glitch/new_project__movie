@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Button, Table } from "antd";
+import React, { useEffect, useState } from "react";
+import { Button, Table,Modal } from "antd";
 import type { ColumnsType, TableProps } from "antd/es/table";
 import { Input, Space } from "antd";
 import { useSelector } from "react-redux";
@@ -9,6 +9,7 @@ import { MovieManament } from "../../../slices/manamentMovie";
 import { ManamentMovie } from "../../../interface/manamentCinema/ManamentMovie";
 import { NavLink } from "react-router-dom";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import AddFilm from "./AddFilm";
 
 const { Search } = Input;
 const onSearch = (value: string) => console.log(value);
@@ -83,7 +84,7 @@ const Film = () => {
       width:"25%",
       render(value, record, index) {
         return (
-          <div>
+          <div className="text-right">
             <NavLink className=" text-primary mr-2 "style={{fontSize:"20px"}} to="/"><EditOutlined/></NavLink>
             <NavLink className=" text-danger "style={{fontSize:"20px"}} to="/"><DeleteOutlined/></NavLink>
           </div>
@@ -103,11 +104,28 @@ const Film = () => {
   ) => {
     console.log("params", pagination, filters, sorter, extra);
   };
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
   return (
     <div className="container">
       <h3>Quản lý phim</h3>
-      <Button className="mb-5">Thêm phim</Button>
+      <Button className="mb-5" type="primary" onClick={showModal}>
+        Thêm phim
+      </Button>
+      <Modal title="Thêm phim" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+        <AddFilm/>
+      </Modal>
       <Search
         className="mb-5"
         placeholder="input search text"

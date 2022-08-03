@@ -113,9 +113,9 @@ console.log(currentUser);
               rules={[
                 { required: true, message: "Mật khẩu không được để trống!" },
                 {
-                  pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-                  message:
-                    "có ít nhất 8 ký tự, trong đó có 1 kí tự số và 1 kí tự chữ",
+                  // pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+                  // message:
+                  //   "có ít nhất 8 ký tự, trong đó có 1 kí tự số và 1 kí tự chữ",
                 },
               ]}
             >
