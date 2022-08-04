@@ -4,7 +4,7 @@ import axiosClient from './axiosClient'
 
 const addFilmAPI = {
     addFilm:(formData:any)=>{
-        return axiosClient.post<unknown,AddFilmInterface>("QuanLyPhim/ThemPhimUploadHinh",formData)
+        return axiosClient.post<unknown,any>("QuanLyPhim/ThemPhimUploadHinh",formData)
     }
 }
 

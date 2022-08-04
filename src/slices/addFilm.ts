@@ -23,7 +23,6 @@ export const createAddFilm= createAsyncThunk(
         alert("Thêm thành công")
         return data;
     } catch (error) {
-        alert("Rất tiếc ! thêm thất bại")
         throw error
     }
    }
@@ -41,6 +40,7 @@ const AddFilmSlice = createSlice({
             return {...state, isLoading:false, data:payload}
         })
         builder.addCase(createAddFilm.rejected,(state, error)=>{
+            alert(error.error.message)
             return {...state, isLoading:false, error:error.error.message as string}
         })
     },

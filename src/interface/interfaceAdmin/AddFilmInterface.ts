@@ -7,5 +7,5 @@ export interface AddFilmInterface {
     sapChieu: boolean,
     hot: boolean,
     danhGia: number,
-    hinhAnh:string,
+    hinhAnh:File,
 }

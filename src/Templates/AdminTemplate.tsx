@@ -11,9 +11,6 @@ const AdminTemplate = () => {
   return (
     <div className="card-container" style={{marginTop:"100px"}}>
       <Tabs type="card">
-        <TabPane tab={<Link to="/admin">User</Link>} key="1">
-            <Dashboard/>
-        </TabPane>
         <TabPane tab={<Link to="/admin/film">Film</Link>} key="2">
             <Film/>
         </TabPane>

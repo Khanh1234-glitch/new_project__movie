@@ -11,6 +11,7 @@ import auth from "./slices/auth";
 import register from "./slices/register";
 import infoListCinema from "./slices/infoListCinema";
 import CheckoutStore from './slices/checkout'
+import editFilm from "./slices/admin/editFilm";
 const store = configureStore({
   reducer: {
     movie,
@@ -22,6 +23,7 @@ const store = configureStore({
     CheckoutStore,
     manamentMovie,
     addFilm,
+    editFilm
   },
   middleware: (getDefaultMiddleware)=>getDefaultMiddleware().concat(logger)
 });

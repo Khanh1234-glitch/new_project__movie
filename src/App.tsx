@@ -11,6 +11,8 @@ import AdminTemplate from "./Templates/AdminTemplate";
 import Film from "./Pages/Admin/Film/Film";
 import Dashboard from "./Pages/Admin/Dashboard/Dashboard";
 import ShowTime from "./Pages/Admin/ShowTime/ShowTime";
+import EditFilm from "./Pages/Admin/Film/EditFilm";
+import CreateCalendar from "./Pages/Admin/Film/CreateCalendar";
 // import Checkout from "./Pages/Checkout/Checkout";
 
 function App() {
@@ -22,13 +24,15 @@ function App() {
           <Route path="/sign__in" element={<LogIn />} />
           <Route path="/register" element={<Register />} />
           <Route path="/detail/:movieId" element={<Detail />} />
-          <Route path="/checkout/:maLichChieu" element={<Checkout />}/>
-        <Route path="/admin" element={<AdminTemplate/>}>
-          <Route path="/admin/film" element={<Film/>}/>
-          <Route index element={<Dashboard/>}/>
-          <Route path="/admin/showtime" element={<ShowTime/>}/>
+          <Route path="/checkout/:maLichChieu" element={<Checkout />} />
+          <Route path="/admin" element={<AdminTemplate />}>
+            <Route path="/admin/film" element={<Film />} />
+            <Route index element={<Dashboard />} />
+            <Route path="/admin/showtime" element={<ShowTime />} />
+          </Route>
         </Route>
-        </Route>
+        <Route path="/admin/editfilm/:id" element={<EditFilm />} />
+        <Route path="/admin/createcalendar/:id" element={<CreateCalendar />} />
 
         <Route path="*" element={<h1>Not found</h1>} />
       </Routes>

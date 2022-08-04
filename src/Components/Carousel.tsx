@@ -35,30 +35,17 @@ const CarouselComponent = () => {
   };
   return (
     <div>
-      {/* <Carousel>
-        {data && data.map((movie: Movie) => {
-          return (
-            <Carousel.Item interval={1000} >
-              <img
-                className="d-block w-100"
-                src={movie.hinhAnh}
-                alt="First slide"
-              />
-            </Carousel.Item>
-          );
-        })}
-      </Carousel> */}
       <Carousel afterChange={onChange}>
         {data &&
           data.map((movie:Movie) => {
             return (
-              <>
                 <div style={contentStyle}>
-                  <img width={"50%"} src={movie.hinhAnh} alt="" />
+                  <img width={"100%"} height={"100%"} src={movie.hinhAnh} alt="" />
                 </div>
-              </>
+              
             );
           })}
+
       </Carousel>
     </div>
   );

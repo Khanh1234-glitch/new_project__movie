@@ -15,10 +15,6 @@ import {
 import style from "../Styles/styleCarouselItem.module.css";
 import axios from "axios";
 const useState = createStyles(() => ({
-  container: {
-    display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)",
-  },
   container__card: {
     margin: "100px 0 0 50px ",
   },
@@ -80,48 +76,54 @@ const CarouselItem = () => {
   return (
     <>
       <div className="container mb-5">
-        <div className={classes.container}>
-          {data &&
-            data.map((MovieList) => {
-              return (
-                <div id="lichchieu" className={classes.container__card}>
-                  <div className={classes.card}>
-                    <div className={style.content__card}>
-                      <div className="card__img">
-                        <img
-                          style={{ borderRadius: "30px" }}
-                          width={"100%"}
-                          height={"360px"}
-                          src={MovieList.hinhAnh}
-                          alt=""
-                        />
-                      </div>
-                      <div className={style.title__card}>
-                        <div className={style.container__title}>
-                          <div className={classes.movieName}>
-                            <span className={classes.span__nameMovie}>C18</span>
-                            <h3>{MovieList.tenPhim}</h3>
+        <div className="contaner__movie">
+          <div className="row">
+            {data &&
+              data.map((MovieList) => {
+                return (
+                  <div className="col-md-6 col-lg-4">
+                    <div id="lichchieu" className={classes.container__card}>
+                      <div className={classes.card}>
+                        <div className={style.content__card}>
+                          <div className="card__img">
+                            <img
+                              style={{ borderRadius: "30px" }}
+                              width={"100%"}
+                              height={"360px"}
+                              src={MovieList.hinhAnh}
+                              alt=""
+                            />
                           </div>
-                          <div className="descripMovie">
-                            <p className={classes.descripMovie}>
-                              {MovieList.moTa.length > 50
-                                ? MovieList.moTa.substring(0, 50) + "...."
-                                : MovieList.moTa}
-                            </p>
-                          </div>  
+                          <div className={style.title__card}>
+                            <div className={style.container__title}>
+                              <div className={classes.movieName}>
+                                <span className={classes.span__nameMovie}>
+                                  C18
+                                </span>
+                                <h3>{MovieList.tenPhim}</h3>
+                              </div>
+                              <div className="descripMovie">
+                                <p className={classes.descripMovie}>
+                                  {MovieList.moTa.length > 50
+                                    ? MovieList.moTa.substring(0, 50) + "...."
+                                    : MovieList.moTa}
+                                </p>
+                              </div>
+                            </div>
+                            <NavLink
+                              className={style.btn__buyTicket}
+                              to={`/detail/${MovieList.maPhim}`}
+                            >
+                              Mua vé
+                            </NavLink>
+                          </div>
                         </div>
-                        <NavLink
-                          className={style.btn__buyTicket}
-                          to={`/detail/${MovieList.maPhim}`}
-                        >
-                          Mua vé
-                        </NavLink>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+          </div>
         </div>
       </div>
       <div className="container mb-5 text-center">

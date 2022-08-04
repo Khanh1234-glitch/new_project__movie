@@ -16,9 +16,9 @@ const initialState: manamentMovie = {
 
 export const MovieManament = createAsyncThunk(
   "manament/ManamentMovie",
-  async () => {
+  async (evt:any) => {
     try {
-      const data = await manamentCinemaAPI.manamentMovie();
+      const data = await manamentCinemaAPI.manamentMovie(evt);
       return data;
     } catch (error) {
       throw error;

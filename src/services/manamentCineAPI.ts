@@ -12,8 +12,10 @@ const manamentCinemaAPI ={
     infoList:(maPhim:any)=>{
         return axiosClient.get<unknown,infoListCinema>(`QuanLyRap/LayThongTinLichChieuPhim?maPhim=${maPhim}`)
     },
-   manamentMovie:()=>{
-    return axiosClient.get<unknown,ManamentMovie[]>(`QuanLyPhim/LayDanhSachPhim`)
+   manamentMovie:(evt:any)=>{
+        return axiosClient.get<unknown,ManamentMovie[]>(`QuanLyPhim/LayDanhSachPhim`,evt)
+
+ 
    }
 }
 

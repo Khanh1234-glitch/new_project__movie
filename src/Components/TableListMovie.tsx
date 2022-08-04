@@ -33,6 +33,7 @@ const TableListMovie = () => {
     <>
       <div id="cumrap" className="container">
         <Tabs tabPosition={tabPosition}>
+
           {data?.map((infoSystem, index) => {
             return (
               <TabPane
@@ -210,8 +211,11 @@ const TableListMovie = () => {
                   })}
                 </Tabs>
               </TabPane>
+
             );
           })}
+
+
         </Tabs>
       </div>
     </>
