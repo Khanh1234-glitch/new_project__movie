@@ -1,5 +1,6 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AddFilmInterface } from '../interface/interfaceAdmin/AddFilmInterface';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
 import addFilmAPI from '../services/addFilmAPI';
 
 

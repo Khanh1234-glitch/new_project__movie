@@ -14,8 +14,6 @@ const manamentCinemaAPI ={
     },
    manamentMovie:(evt:any)=>{
         return axiosClient.get<unknown,ManamentMovie[]>(`QuanLyPhim/LayDanhSachPhim`,evt)
-
- 
    }
 }
 

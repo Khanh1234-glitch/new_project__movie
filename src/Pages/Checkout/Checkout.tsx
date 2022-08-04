@@ -27,7 +27,7 @@ const Checkout = () => {
     <div className="">
       <div className=" mt-5">
         <div className="row">
-          <div className="col-8  ">
+          <div className="col-12 col-xl-8  ">
             <div className="d-flex justify-content-center">
               <div className="screen">
                 <div className="text-center mt-3">Màn hình</div>
@@ -72,7 +72,7 @@ const Checkout = () => {
               })}
             </div>
           </div>
-          <div className="col-4">
+          <div className="col-xl-4">
             <h3 className="text-success text-center text-2xl">
               {listSeatBooking
                 .reduce((total, seat, index) => {
@@ -85,7 +85,7 @@ const Checkout = () => {
             <h3>{data?.thongTinPhim?.tenPhim}</h3>
             <p>Địa điểm: {data?.thongTinPhim?.diaChi} </p>
             <p>
-              Ngày chiếu: {data?.thongTinPhim?.ngayChieu} -{" "}
+              Ngày chiếu: {data?.thongTinPhim?.ngayChieu} -
               {data?.thongTinPhim?.gioChieu}
             </p>
             <hr />

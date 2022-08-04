@@ -33,7 +33,7 @@ function App() {
         </Route>
         <Route path="/admin/editfilm/:id" element={<EditFilm />} />
         <Route path="/admin/createcalendar/:id" element={<CreateCalendar />} />
-
+{/* nó không có ở đây anh */}
         <Route path="*" element={<h1>Not found</h1>} />
       </Routes>
       <GlobalStyles />

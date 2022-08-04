@@ -64,7 +64,7 @@ const EditFilm = () => {
           }
         }
       }
-      dispatch(createEditFilmUpdate(formData))
+      dispatch(createEditFilmUpdate(formData));
     },
   });
   const [componentSize, setComponentSize] = useState<SizeType | "default">(
@@ -88,7 +88,7 @@ const EditFilm = () => {
       formik.setFieldValue(name, values);
     };
   };
-  const handleChangeFile =async (event: any) => {
+  const handleChangeFile = async (event: any) => {
     // Lấy file từ event
     const file = event.target.files[0];
     if (
@@ -96,17 +96,16 @@ const EditFilm = () => {
       file.type === "image/jpg" ||
       file.type === "image/gif" ||
       file.type === "image/png"
-    ){
-      await  formik.setFieldValue('hinhAnh',file)
-        // Tạo đối tượng đọc file
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = (event) => {
-          console.log(event.target?.result);
-          setImgSrc(event.target?.result);
+    ) {
+      await formik.setFieldValue("hinhAnh", file);
+      // Tạo đối tượng đọc file
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        console.log(event.target?.result);
+        setImgSrc(event.target?.result);
+      };
     }
-
-    };
   };
 
   return (
@@ -197,7 +196,7 @@ const EditFilm = () => {
             type="submit"
             className=" bg-primary border-0 text-light rounded px-3 py-2"
           >
-         Sửa 
+            Sửa
           </button>
         </Form.Item>
       </Form>

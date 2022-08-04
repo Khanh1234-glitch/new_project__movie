@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { MovieManament } from "../../../slices/manamentMovie";
 import { ManamentMovie } from "../../../interface/manamentCinema/ManamentMovie";
 import { NavLink } from "react-router-dom";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { CalendarOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import AddFilm from "./AddFilm";
 import { createDeleteFilm } from "../../../slices/admin/deleteFilm";
 import { useParams } from "react-router-dom";
@@ -102,14 +102,21 @@ const Film = () => {
                     "Bạn có chắc muốn xóa phim " + record.tenPhim + " không ?"
                   )
                 ) {
-                  dispatch(createDeleteFilm(param.maPhim));
+                  dispatch(createDeleteFilm(record.maPhim));
                 }
               }}
-              className=" text-danger ml-3 border-0 bg-white"
+              className=" text-danger ml-2 border-0 bg-white"
               style={{ fontSize: "20px", cursor: "pointer" }}
             >
               <DeleteOutlined />
             </button>
+            <NavLink
+              className=" text-success  ml-2"
+              style={{ fontSize: "20px" }}
+              to={`/admin/createcalendar/${record.maPhim}`}
+            >
+              <CalendarOutlined />
+            </NavLink>
           </div>
         );
       },

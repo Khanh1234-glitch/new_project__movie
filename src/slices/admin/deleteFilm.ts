@@ -19,7 +19,7 @@ export const createDeleteFilm = createAsyncThunk(
     "admin/deleteFilm",
    async (maPhim:any) => {
     try {
-        const data = await Admin.deleteFilmAPI(maPhim);
+        const data = await Admin.deleteFilm(maPhim);
         return data
     } catch (error) {
         throw error        

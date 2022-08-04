@@ -15,7 +15,7 @@ const Detail = () => {
     (state: RootState) => state.infoListCinema
   );
   console.log(data);
-  const moment = require('moment');
+  const moment = require("moment");
   const param = useParams();
   const dispatch = useDispatch<any>();
   useEffect(() => {
@@ -32,16 +32,20 @@ const Detail = () => {
           minHeight: "100vh",
         }}
       >
-        <div className={styles.App} style={{ display: "flex" }}>
+        <div className={styles.App}>
           <div className={styles.box1}>
-            <div className="container cols-12">
-              <div className={styles.row}>
-                <div className="col-sm-4">
+            <div className="container cols-12 ">
+              <div className="row" style={{ marginTop: "30vh" }}>
+                <div className="col-sm-6">
                   <img src={data.hinhAnh} width={"200px"} alt="" />
                 </div>
-                <div className="col-sm-4">
+                <div className="col-sm-6">
                   <p>{data.tenPhim}</p>
-                  <p>{data.moTa}</p>
+                  <p>
+                    {data.moTa.length > 50
+                      ? data.moTa.substring(0, 50) + "..."
+                      : data.moTa}
+                  </p>
                 </div>
                 <div className="circle firchow">
                   <div className="c100 p50 big">
@@ -93,15 +97,20 @@ const Detail = () => {
                                   </div>
                                 </div>
                                 <div className="row ">
-                                    {group.lichChieuPhim?.map(
-                                      (calendar, index) => {
-                                        return (
-                                          <NavLink to={`/checkout/${calendar.maLichChieu}`}className="col-3 text-primary">
-                                            {moment(calendar.ngayChieuGioChieu).format('hh:mm A') }
-                                          </NavLink>
-                                        );
-                                      }
-                                    )}  
+                                  {group.lichChieuPhim?.map(
+                                    (calendar, index) => {
+                                      return (
+                                        <NavLink
+                                          to={`/checkout/${calendar.maLichChieu}`}
+                                          className="col-3 text-primary"
+                                        >
+                                          {moment(
+                                            calendar.ngayChieuGioChieu
+                                          ).format("hh:mm A")}
+                                        </NavLink>
+                                      );
+                                    }
+                                  )}
                                 </div>
                               </div>
                             );

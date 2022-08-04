@@ -12,6 +12,8 @@ import register from "./slices/register";
 import infoListCinema from "./slices/infoListCinema";
 import CheckoutStore from './slices/checkout'
 import editFilm from "./slices/admin/editFilm";
+import CalendarFilm from "./slices/admin/CalendarFilm";
+import infoClusterCinema from "./slices/admin/infoClusterCinema";
 const store = configureStore({
   reducer: {
     movie,
@@ -23,7 +25,9 @@ const store = configureStore({
     CheckoutStore,
     manamentMovie,
     addFilm,
-    editFilm
+    editFilm,
+    CalendarFilm,
+    infoClusterCinema
   },
   middleware: (getDefaultMiddleware)=>getDefaultMiddleware().concat(logger)
 });

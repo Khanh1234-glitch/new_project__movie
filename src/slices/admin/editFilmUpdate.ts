@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { Navigate } from 'react-router-dom';
 import { EditFilm } from './../../interface/interfaceAdmin/EditFilm';
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
@@ -24,6 +25,8 @@ export const createEditFilmUpdate = createAsyncThunk(
         alert("Sửa phim thành công")
         return data;
     } catch (error) {
+        const err = (error as AxiosError).response?.data as any;
+        alert(err)
         throw error
     }
    }
@@ -42,7 +45,6 @@ const editFilmUpdateSlice = createSlice({
             return {...state, isLoading:true, data:payload}
         })
         builder.addCase(createEditFilmUpdate.rejected,(state, error)=>{
-            alert("Thất bại")
             return {...state, isLoading:true, error:error.error.message as string}
         })
     },

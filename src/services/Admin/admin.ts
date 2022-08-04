@@ -1,3 +1,4 @@
+import { createCalendarFilm } from './../../interface/interfaceAdmin/createCalendarFilm';
 import { EditFilm } from './../../interface/interfaceAdmin/EditFilm';
 import React from 'react'
 import axiosClient from '../axiosClient'
@@ -9,8 +10,11 @@ const Admin =  {
     updateFilmAPI:(formData:any)=>{
         return axiosClient.post<unknown, EditFilm>(`QuanLyPhim/CapNhatPhimUpload`, formData)
     },
-    deleteFilmAPI:(maPhim:any)=>{
+    deleteFilm:(maPhim:any)=>{
         return axiosClient.delete(`QuanLyPhim/XoaPhim?MaPhim=${maPhim}`)
+    },
+    infoSystemCinema:()=>{
+        return axiosClient.get<unknown, createCalendarFilm[]>(`QuanLyRap/LayThongTinHeThongRap`)
     }
 }
 
