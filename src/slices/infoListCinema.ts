@@ -20,7 +20,9 @@ export const createInfoCinema = createAsyncThunk(
  async (maPhim:any) => {
     try {
       const data = await manamentCinemaAPI.infoList(maPhim);
-      return data
+      console.log(data);
+      
+      return data;
     } catch (error) {
       const err = (error as AxiosError).response?.data as any
       return err;

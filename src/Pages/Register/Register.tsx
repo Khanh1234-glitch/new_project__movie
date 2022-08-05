@@ -5,6 +5,8 @@ import { AppDispatch, RootState } from "../../store";
 import { CreateRegister } from "./../../slices/register";
 import { FaRegistered } from "react-icons/fa";
 import { Navigate } from "react-router-dom";
+
+
 interface RegisterValues {
   taiKhoan: string;
   matKhau: string;

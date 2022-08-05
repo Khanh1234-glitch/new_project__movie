@@ -13,6 +13,7 @@ import Dashboard from "./Pages/Admin/Dashboard/Dashboard";
 import ShowTime from "./Pages/Admin/ShowTime/ShowTime";
 import EditFilm from "./Pages/Admin/Film/EditFilm";
 import CreateCalendar from "./Pages/Admin/Film/CreateCalendar";
+
 // import Checkout from "./Pages/Checkout/Checkout";
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
         </Route>
         <Route path="/admin/editfilm/:id" element={<EditFilm />} />
         <Route path="/admin/createcalendar/:id" element={<CreateCalendar />} />
+        
 {/* nó không có ở đây anh */}
         <Route path="*" element={<h1>Not found</h1>} />
       </Routes>

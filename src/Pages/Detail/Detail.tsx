@@ -1,5 +1,6 @@
 import { Tabs } from "antd";
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
@@ -11,23 +12,24 @@ import styles from "./Detail.module.css";
 type TabPosition = "left" | "right" | "top" | "bottom";
 const { TabPane } = Tabs;
 const Detail = () => {
-  const { data, isLoading, error } = useSelector(
-    (state: RootState) => state.infoListCinema
-  );
-  console.log(data);
+  const {data, isLoading, error} = useSelector(
+    (state:RootState)=>state.infoListCinema
+  )
   const moment = require("moment");
   const param = useParams();
   const dispatch = useDispatch<any>();
   useEffect(() => {
     dispatch(createInfoCinema(param.movieId));
   }, []);
+  console.log(data);
+
   // console.log(param.movieId);
   const [tabPosition, setTabPosition] = useState<TabPosition>("left");
   return (
     <div>
       <div
         style={{
-          backgroundImage: `url(${data.hinhAnh})`,
+          backgroundImage: `url(${data?.hinhAnh})`,
           backgroundSize: "cover",
           minHeight: "100vh",
         }}
@@ -36,20 +38,20 @@ const Detail = () => {
           <div className={styles.box1}>
             <div className="container cols-12 ">
               <div className="row" style={{ marginTop: "30vh" }}>
-                <div className="col-sm-6">
-                  <img src={data.hinhAnh} width={"200px"} alt="" />
+                <div className="col-sm-6 col-xl-4 col-lg-4">
+                  <img src={data?.hinhAnh} width={"200px"} alt="" />
                 </div>
-                <div className="col-sm-6">
-                  <p>{data.tenPhim}</p>
+                <div className="col-sm-6 col-xl-4 col-lg-4" >
+                  <p>{data?.tenPhim}</p>
                   <p>
-                    {data.moTa.length > 50
-                      ? data.moTa.substring(0, 50) + "..."
-                      : data.moTa}
+                    {data?.moTa?.length > 50
+                      ? data?.moTa.substring(0, 50) + "..."
+                      : data?.moTa}
                   </p>
                 </div>
-                <div className="circle firchow">
+                <div className="circle firchow col-lg-4">
                   <div className="c100 p50 big">
-                    <span>{data.danhGia}%</span>
+                    <span>{data?.danhGia}%</span>
                     <div className="slice">
                       <div className="bar" />
                       <div className="fill" />
@@ -67,18 +69,18 @@ const Detail = () => {
               <TabPane tab="Lịch chiếu" key="1">
                 <div className="container tab__detail mt-5">
                   <Tabs tabPosition={tabPosition} className="bg-white">
-                    {data.heThongRapChieu?.map((item, index) => {
+                    {data && data?.heThongRapChieu?.map((item, index) => {
                       return (
                         <TabPane
                           tab={
                             <div>
-                              <img src={item.logo} width={50} height={50} />{" "}
+                              <img src={item.logo} width={50} height={50} />
                               {item.tenHeThongRap}
                             </div>
                           }
                           key={index}
                         >
-                          {item.cumRapChieu.map((group, index) => {
+                          {item && item?.cumRapChieu.map((group, index) => {
                             return (
                               <div key={index}>
                                 <div className="groupDetail mt-5 d-flex">
@@ -97,8 +99,8 @@ const Detail = () => {
                                   </div>
                                 </div>
                                 <div className="row ">
-                                  {group.lichChieuPhim?.map(
-                                    (calendar, index) => {
+                                  {group?.lichChieuPhim?.map(
+                                    (calendar,index) => {
                                       return (
                                         <NavLink
                                           to={`/checkout/${calendar.maLichChieu}`}
@@ -111,6 +113,7 @@ const Detail = () => {
                                       );
                                     }
                                   )}
+                             
                                 </div>
                               </div>
                             );
@@ -118,6 +121,7 @@ const Detail = () => {
                         </TabPane>
                       );
                     })}
+                    
                   </Tabs>
                 </div>
               </TabPane>

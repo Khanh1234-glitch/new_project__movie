@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import logger from 'redux-logger'
+import logger from "redux-logger";
 import  manamentMovie  from './slices/manamentMovie';
 // import thunk from 'redux-thunk'
 // import  CheckoutStore  from './slices/checkout';
@@ -14,6 +14,8 @@ import CheckoutStore from './slices/checkout'
 import editFilm from "./slices/admin/editFilm";
 import CalendarFilm from "./slices/admin/CalendarFilm";
 import infoClusterCinema from "./slices/admin/infoClusterCinema";
+import ManamentListUser from './slices/admin/User/ManamentListUser';
+import UserTypeSlice from "./slices/admin/User/UserTypeSlice";
 const store = configureStore({
   reducer: {
     movie,
@@ -27,7 +29,9 @@ const store = configureStore({
     addFilm,
     editFilm,
     CalendarFilm,
-    infoClusterCinema
+    infoClusterCinema,
+    ManamentListUser,
+    UserTypeSlice
   },
   middleware: (getDefaultMiddleware)=>getDefaultMiddleware().concat(logger)
 });
